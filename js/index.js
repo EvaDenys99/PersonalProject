@@ -135,31 +135,31 @@
       }
     });
     //the actual robot
-    const chest = Bodies.rectangle(x, y, 100 * scale, 50 * scale, chestOptions);
+    const chest = Bodies.rectangle(x, y, 150 * scale, 50 * scale, chestOptions);
     //voorpoten
     const rightUpperArm = Bodies.rectangle(
-      x + 0 * scale,
+      x - 26 * scale,
       y + 20 * scale,
       20 * scale,
       60 * scale,
       rightArmOptions
     );
     const rightLowerArm = Bodies.rectangle(
-      x + 0 * scale,
+      x - 26 * scale,
       y + 60 * scale,
       20 * scale,
       60 * scale,
       rightLowerArmOptions
     );
     const leftUpperArm = Bodies.rectangle(
-      x + 0 * scale,
+      x - 26 * scale,
       y + 20 * scale,
       20 * scale,
       60 * scale,
       leftArmOptions
     );
     const leftLowerArm = Bodies.rectangle(
-      x + 0 * scale,
+      x - 26 * scale,
       y + 60 * scale,
       20 * scale,
       60 * scale,
@@ -168,29 +168,29 @@
 
     //achterpoten
     const leftUpperLeg = Bodies.rectangle(
-      x + 15 * scale,
-      y + 57 * scale,
+      x + 20 * scale,
+      y + 31 * scale,
       20 * scale,
       60 * scale,
       leftLegOptions
     );
     const leftLowerLeg = Bodies.rectangle(
-      x + 15 * scale,
-      y + 97 * scale,
+      x + 20 * scale,
+      y + 71 * scale,
       20 * scale,
       60 * scale,
       leftLowerLegOptions
     );
     const rightUpperLeg = Bodies.rectangle(
-      x + 15 * scale,
-      y + 57 * scale,
+      x + 20 * scale,
+      y + 31 * scale,
       20 * scale,
       60 * scale,
       rightLegOptions
     );
     const rightLowerLeg = Bodies.rectangle(
-      x + 15 * scale,
-      y + 97 * scale,
+      x + 20 * scale,
+      y + 71 * scale,
       20 * scale,
       60 * scale,
       rightLowerLegOptions
@@ -200,7 +200,7 @@
     const chestToRightUpperArm = Constraint.create({
       bodyA: chest,
       pointA: {
-        x: -24 * scale,
+        x: -50 * scale,
         y: 23 * scale
       },
       pointB: {
@@ -217,7 +217,7 @@
     const chestToLeftUpperArm = Constraint.create({
       bodyA: chest,
       pointA: {
-        x: -24 * scale,
+        x: -50 * scale,
         y: 23 * scale
       },
       pointB: {
@@ -234,7 +234,7 @@
     const chestToLeftUpperLeg = Constraint.create({
       bodyA: chest,
       pointA: {
-        x: 24 * scale,
+        x: 50 * scale,
         y: 20 * scale
       },
       pointB: {
@@ -251,7 +251,7 @@
     const chestToRightUpperLeg = Constraint.create({
       bodyA: chest,
       pointA: {
-        x: 24 * scale,
+        x: 50 * scale,
         y: 20 * scale
       },
       pointB: {
