@@ -1,0 +1,14 @@
+{
+  "name": "PersonalProject",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/EvaDenys99/PersonalProject",
+  "author": "Eva Denys",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn && yarn start"
+  },
+  "dependencies": {
+    "matter-js": "^0.14.2"
+  }
+}

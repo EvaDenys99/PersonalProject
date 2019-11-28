@@ -8,7 +8,7 @@ De keuze hiervoor is zodat er minder bijkomende druk op de schouders komt te lig
 ## Core Project Statement
 
 Hoe kan de gebruiker een quadruped robot aansturen via een web applicatie om daarmee interactie aan te gaan?
-Het eindresultaat zou een quadruped robot zijn die aangestuurd word via een web applicatie, een bijkomende feature zou zijn dat het aangesproken kan worden en zo vragen kan beantwoorden (zoals Alexa). Hierbij zullen de volgende technieken van toepassing komen; Arduino, Raspberry Pi, ...
+Het eindresultaat zou een quadruped robot zijn die aangestuurd word via een web applicatie, een bijkomende feature zou zijn dat het aangesproken kan worden en zo vragen kan beantwoorden (zoals Alexa). Hierbij zullen de volgende technieken van toepassing komen; Arduino, Raspberry Pi, socket.io ...
 
 ## Deliverables
 
