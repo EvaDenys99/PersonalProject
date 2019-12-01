@@ -6,9 +6,11 @@
   "author": "Eva Denys",
   "license": "MIT",
   "scripts": {
-    "start": "yarn && yarn start"
+    "start": "node index.js"
   },
   "dependencies": {
-    "matter-js": "^0.14.2"
+    "express": "^4.17.1",
+    "matter-js": "^0.14.2",
+    "socket.io": "^2.3.0"
   }
 }

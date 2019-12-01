@@ -1,0 +1,40 @@
+@import './reset.css';
+@import './vars.css';
+
+html {
+  height: 100%;
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: black;
+  color: white;
+
+}
+
+h1{
+    font-size: 2.6rem;
+    padding: 5rem;
+}
+
+button{
+  margin: 2.5rem;
+}
+
+.controls{
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+}
