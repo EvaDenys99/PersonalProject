@@ -9,13 +9,21 @@
   </head>
   <body>
     <h1>Robot Controls</h1>
-    <img src="" alt="hier komt de video feed" />
+    <img
+      src="http://192.168.0.225:8080/stream/video.mjpeg"
+      alt="hier komt de video feed"
+    />
     <div class="controls">
       <button id="forward" value="Forward">Forward</button>
       <button id="backward" value="Backward">Backward</button>
       <button id="left" value="Go Left">Go Left</button>
       <button id="right" value="Go Right">Go Right</button>
-      <button id="sit" value="Sit">Sit</button>
+      <button id="bow" value="Bow">Bow</button>
+      <button id="dance" value="Dance">Make a dance!</button>
+      <button id="wave" value="Wave">Wave</button>
+      <button id="lean_left" value="Lean left">Lean left</button>
+      <button id="lean_right" value="Lean right">Lean right</button>
+      <button id="center" value="center">Center all servos</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="js/index.js"></script>
