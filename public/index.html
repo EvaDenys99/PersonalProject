@@ -8,22 +8,45 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <h1>Robot Controls</h1>
-    <img
-      src="http://192.168.0.225:8080/stream/video.mjpeg"
-      alt="hier komt de video feed"
-    />
-    <div class="controls">
-      <button id="forward" value="Forward">Forward</button>
-      <button id="backward" value="Backward">Backward</button>
-      <button id="left" value="Go Left">Go Left</button>
-      <button id="right" value="Go Right">Go Right</button>
-      <button id="bow" value="Bow">Bow</button>
-      <button id="dance" value="Dance">Make a dance!</button>
-      <button id="wave" value="Wave">Wave</button>
-      <button id="lean_left" value="Lean left">Lean left</button>
-      <button id="lean_right" value="Lean right">Lean right</button>
-      <button id="center" value="center">Center all servos</button>
+    <div class="typewriter box1 sb5">
+      <h1 id="tekst">Nice to meet ya!</h1>
+    </div>
+    <div class="camera">
+      <button id="camera_left" value="right"><i class="right"></i></button>
+      <img
+        src="http://192.168.0.225:8080/stream/video.mjpeg"
+        alt="hier komt de video feed"
+        height="300"
+        width="300"
+      />
+      <button id="camera_right" value="left"><i class="left"></i></button>
+    </div>
+    <button id="test" value="test">test</button>
+    <div class="kruis">
+      <button class="kruis_voor" id="forward" value="Forward">Forward</button>
+      <button class="kruis_achter" id="backward" value="Backward">
+        Backward
+      </button>
+      <button class="kruis_links" id="left" value="Go Left">Go Left</button>
+      <button class="kruis_rust" id="rust" value="rust">Rest</button>
+      <button class="kruis_rechts" id="right" value="Go Right">
+        Go Right
+      </button>
+    </div>
+    <div class="controlsOver">
+      <div class="controls">
+        <button id="bow" value="Bow">Bow</button>
+        <button id="dance" value="Dance">Make a dance!</button>
+        <button id="wave" value="Wave">Wave</button>
+      </div>
+      <div class="controls">
+        <button id="lean_left" value="Lean left">Lean left</button>
+        <button id="lean_right" value="Lean right">Lean right</button>
+        <button id="center" value="center">Center Robot</button>
+      </div>
+    </div>
+    <div class="typewriter box1 sb5">
+      <h2 id="tekst01">Nice to meet ya!</h2>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="js/index.js"></script>

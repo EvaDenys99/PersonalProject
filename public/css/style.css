@@ -15,26 +15,196 @@ html {
 
 body {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
   background-color: black;
   color: white;
-
 }
 
-h1{
+h1, h2{
     font-size: 2.6rem;
-    padding: 5rem;
+    padding: 1rem;
 }
 
-button{
+.camera{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+}
+
+.camera button{
+  border: none;
+  background-color: black;
+}
+
+.camera img{
+  border: 0.4rem solid #00bfb6;
+}
+
+i {
+  border: solid #00bfb6;
+  border-width: 0 0.5rem 0.5rem 0;
+  display: inline-block;
+  padding: 0.5rem;
+}
+
+.left {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.right {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.controlsOver{
+  display: flex;
+  flex-direction: row;
+  margin-left: -1.5rem;
+}
+
+.kruis{
+  display: grid;
+  margin-left: -1.5rem;
+  grid-template-columns: repeat(3, 13.5rem);
+  grid-template-rows: repeat(3, 11rem);
+  grid-template-areas: ". forward ." "links rust rechts" ". backward .";
+}
+
+.kruis_voor{
+  grid-area: forward;
+  border: none;
+  background-color: #00bfb6;
+  color: #ffffff;
+  width: 12rem;
+  padding: 2rem 1rem;  
+  border-radius: 1.2rem;
   margin: 2.5rem;
+}
+
+.kruis_achter{
+  grid-area: backward;
+  border: none;
+  background-color: #00bfb6;
+  color: #ffffff;
+  width: 12rem;
+  padding: 2rem 1rem;  
+  border-radius: 1.2rem;
+  margin: 2.5rem;
+}
+
+.kruis_links{
+  grid-area: links;
+  border: none;
+  background-color: #00bfb6;
+  color: #ffffff;
+  width: 12rem;
+  padding: 2rem 1rem;  
+  border-radius: 1.2rem;
+  margin: 2.5rem;
+}
+
+.kruis_rechts{
+  grid-area: rechts;
+  border: none;
+  background-color: #00bfb6;
+  color: #ffffff;
+  width: 12rem;
+  padding: 2rem 1rem;  
+  border-radius: 1.2rem;
+  margin: 2.5rem;
+}
+
+.kruis_rust{
+  grid-area: rust;
+  border-radius: 50%;
+  border: 0.4rem solid #00bfb6;
+  background-color: black;
+  color: #ffffff;
+  width: 9rem;
+  height: 9rem;
+  padding: 2rem 1rem;  
+  margin: 4rem; */
+  display: flex;
+
+  justify-content: center;
+  align-self: center;
 }
 
 .controls{
   display: flex;
   flex-direction: column;
   padding: 2.5rem;
+}
+
+.controls button{
+  border: 0.4rem solid #00bfb6;
+  background-color: black;
+  color: #ffffff;
+  width: 12rem;
+  padding: 2rem 1rem;  
+  border-radius: 1.2rem;
+  margin: 2.5rem;
+}
+
+.box1 {
+  width: 35rem;
+  margin: 5rem auto;
+  border: 0.4rem solid #00bfb6;
+  padding: 2rem;
+  text-align: center;
+  font-weight: 900; 
+  color: #00bfb6;
+  font-family: arial;
+  position: relative;
+}
+
+/* .typewriter h1{
+  overflow: hidden; 
+  border-right: .15em solid white; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+} */
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: white; }
+}
+
+.sb5:before {
+  content: "";
+  width: 0rem;
+  height: 0rem;
+  position: absolute;
+  border-left: 1rem solid #00bfb6;
+  border-right: 1rem solid transparent;
+  border-top: 1rem solid #00bfb6;
+  border-bottom: 1rem solid transparent;
+  right: -2rem;
+  top: 0.6rem;
+}
+
+.sb5:after {
+  content: "";
+  width: 0rem;
+  height: 0rem;
+  position: absolute;
+  border-left: .7rem solid #000000;
+  border-right: .7rem solid transparent;
+  border-top: .7rem solid #000000;
+  border-bottom: .7rem solid transparent;
+  right: -1.1rem;
+  top: 1rem;
 }
