@@ -12,16 +12,19 @@
       <h1 id="tekst">Nice to meet ya!</h1>
     </div>
     <div class="camera">
-      <button id="camera_left" value="right"><i class="right"></i></button>
+      <button id="camera_left" runat="server" value="right">
+        <i class="right"></i>
+      </button>
       <img
         src="http://192.168.0.225:8080/stream/video.mjpeg"
         alt="hier komt de video feed"
         height="300"
         width="300"
       />
-      <button id="camera_right" value="left"><i class="left"></i></button>
+      <button id="camera_right" runat="server" value="left">
+        <i class="left"></i>
+      </button>
     </div>
-    <button id="test" value="test">test</button>
     <div class="kruis">
       <button class="kruis_voor" id="forward" value="Forward">Forward</button>
       <button class="kruis_achter" id="backward" value="Backward">

@@ -10,6 +10,10 @@ const board = new five.Board({
 });
 const controller = "PCA9685";
 
+//camera buttons
+// const btnCameraLeft = document.querySelector("#camera_left");
+// const btnCameraRight = document.querySelector("#camera_right");
+
 board.on("ready", function() {
   console.log("Johnny-five connected");
   // calibration
@@ -95,9 +99,10 @@ board.on("ready", function() {
     controller,
     pin: 14
   });
-  // Servo camera right
+  // Servo camera
   const CRServo = new five.Servo({
     controller,
+    range: [55, 120],
     pin: 11
   });
   //
@@ -105,7 +110,7 @@ board.on("ready", function() {
   //centreer alle servos = zet alle angles op 90°
   const center_servos = () => {
     FLPServo.to(90);
-    FLLServo.to(90);
+    FLLServo.to(100);
     BLPServo.to(90);
     BLLServo.to(90);
     BRPServo.to(90);
@@ -146,7 +151,7 @@ board.on("ready", function() {
     FRLServo.to(15);
   };
   const bowPart02 = () => {
-    FLLServo.to(90);
+    FLLServo.to(100);
     FRLServo.to(90);
   };
   const bow = () => {
@@ -172,9 +177,16 @@ board.on("ready", function() {
   };
   //wave
   const wave = () => {
-    center_servos();
+    // center_servos();
+    FLPServo.to(55);
+    FLLServo.to(100);
+    BLPServo.to(90);
     BLLServo.to(45);
+    BRPServo.to(90);
     BRLServo.to(45);
+    FRPServo.to(90);
+    FRLServo.to(90);
+
     delay(200).then(() => FRLServo.to(0));
     delay(400).then(() => FRPServo.to(180));
     delay(600).then(() => FRPServo.to(30));
@@ -183,7 +195,7 @@ board.on("ready", function() {
     delay(1500).then(() => FRPServo.to(s41));
     delay(1800).then(() => FRLServo.to(s42));
     delay(2000).then(() => bow());
-    center_servos();
+    // center_servos();
   };
   //1 stap vooruit
   const forward = () => {
@@ -202,14 +214,15 @@ board.on("ready", function() {
 
     // set servo positions and speeds needed to walk forward one step
     // (LFP,  LBP, RBP,  RFP, LFL, LBL, RBL, RFL, S1, S2, S3, S4)
-    srv(a180, b0, c120, d60, 42, 33, 33, 42, 1, 3, 1, 1);
-    srv(a90, b30, c90, d30, 6, 33, 33, 42, 3, 1, 1, 1);
-    srv(a90, b30, c90, d30, 42, 33, 33, 42, 3, 1, 1, 1);
-    srv(a120, b60, c180, d0, 42, 33, 6, 42, 1, 1, 3, 1);
-    srv(a120, b60, c180, d0, 42, 33, 33, 42, 1, 1, 3, 1);
-    srv(a150, b90, c150, d90, 42, 33, 33, 6, 1, 1, 1, 3);
-    srv(a150, b90, c150, d90, 42, 33, 33, 42, 1, 1, 1, 3);
-    srv(a180, b0 + 30, c120, d60, 42, 6, 33, 42, 1, 3, 1, 1);
+    srv(a180, b0, c120, d60, 42, 40, 33, 42, 1, 3, 1, 1);
+    srv(a90, b30, c90, d30, 6, 40, 33, 42, 3, 1, 1, 1);
+    srv(a90, b30, c90, d30, 42, 40, 33, 42, 3, 1, 1, 1);
+    srv(a120, b60, c180, d0, 42, 40, 6, 42, 1, 1, 3, 1);
+    srv(a120, b60, c180, d0, 42, 40, 33, 42, 1, 1, 3, 1);
+    srv(a150, b90, c150, d90, 42, 40, 33, 6, 1, 1, 1, 3);
+    srv(a150, b90, c150, d90, 42, 40, 33, 42, 1, 1, 1, 3);
+    srv(a180, b0, c120, d60, 42, 40, 33, 42, 1, 3, 1, 1);
+    srv(a180, b0, c120, d60, 42, 40, 33, 42, 1, 3, 1, 1);
     // center_servos();
     console.log("lopen");
   };
@@ -455,34 +468,62 @@ board.on("ready", function() {
     BRLServo.to(s32);
     FRLServo.to(s42);
 
-    delay(spd).then(() => console.log("hallo")); // Delay before next movement
+    delay(spd).then(() => console.log("next move")); // Delay before next movement
     // await delay(5000);
   };
+  //camera links
+  const camera_links = msg => {
+    if (CRServo.value === 120) {
+      CRServo.to(82.5);
+    } else {
+      CRServo.to(55);
+      // console.log(msg);
+      // msg.classList.add(".disabled");
+    }
+  };
 
+  //camera right
+  const camera_right = () => {
+    if (CRServo.value === 55) {
+      CRServo.to(82.5);
+    } else {
+      CRServo.to(120);
+    }
+  };
   //
   io.on("connection", function(socket) {
     //
     //CRServo.to(82.5); //for center
     socket.on("forward", function(msg) {
-      CRServo.to(82.5);
-      // delay(5000).then(() => forward());
-      // setTimeout(function() {
-      //   forward();
-      // }, 100);
+      delay(5000).then(() => forward());
     });
     socket.on("forwardHold", function(msg) {
-      //loop I+1000 timer set ....
+      console.log("hold forward");
+      forward();
+    });
+    socket.on("stop", function(msg) {
+      console.log("stop");
     });
     socket.on("backward", function(msg) {
-      // delay(5000).then(() => backward());
-      CRServo.to(55);
+      delay(5000).then(() => backward());
+    });
+    socket.on("backwardHold", function(msg) {
+      console.log("hold back");
+      backward();
     });
     socket.on("left", function(msg) {
-      // delay(5000).then(() => turn_left());
-      CRServo.to(110);
+      delay(5000).then(() => turn_left());
+    });
+    socket.on("leftHold", function(msg) {
+      console.log("hold left");
+      turn_left();
     });
     socket.on("right", function(msg) {
       delay(5000).then(() => turn_right());
+    });
+    socket.on("rightHold", function(msg) {
+      console.log("hold right");
+      lean_right();
     });
     socket.on("bow", function(msg) {
       delay(5000).then(() => bow());
@@ -503,8 +544,13 @@ board.on("ready", function() {
       delay(5000).then(() => center_servos());
     });
     socket.on("rust", function(msg) {
-      // delay(5000).then(() => rust());
       rust();
+    });
+    socket.on("camera_links", function(msg) {
+      camera_links(msg);
+    });
+    socket.on("camera_right", function(msg) {
+      camera_right();
     });
   });
 });

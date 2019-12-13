@@ -41,6 +41,10 @@ h1, h2{
   border: 0.4rem solid #00bfb6;
 }
 
+.disabled{
+  opacity: 20%;
+}
+
 i {
   border: solid #00bfb6;
   border-width: 0 0.5rem 0.5rem 0;
