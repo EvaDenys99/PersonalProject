@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const server = require("http").Server(app);
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 const io = require("socket.io")(server);
 
 const five = require("johnny-five");
@@ -10,52 +10,57 @@ const board = new five.Board({
 });
 const controller = "PCA9685";
 
+// calibration
+let da = -12, // Left Front Pivot
+  db = 10, // Left Back Pivot
+  dc = -18, // Right Back Pivot
+  dd = 12; // Right Front Pivot
+
+// servo initial positions + calibration
+let a90 = 90 + da,
+  a120 = 120 + da,
+  a150 = 150 + da,
+  a180 = 180 + da;
+
+let b0 = 0 + db,
+  b30 = 30 + db,
+  b60 = 60 + db,
+  b90 = 90 + db;
+
+let c90 = 90 + dc,
+  c120 = 120 + dc,
+  c150 = 150 + dc,
+  c180 = 180 + dc;
+
+let d0 = 0 + dd,
+  d30 = 30 + dd,
+  d60 = 60 + dd,
+  d90 = 90 + dd;
+
+// start polets for servo
+let s11 = 90; // Front Left Pivot Servo
+let s12 = 90; // Front Left Lift Servo
+let s21 = 90; // Back Left Pivot Servo
+let s22 = 90; // Back Left Lift Servo
+let s31 = 90; // Back Right Pivot Servo
+let s32 = 90; // Back Right Lift Servo
+let s41 = 90; // Front Right Pivot Servo
+let s42 = 90; // Front Right Lift Servo
+
+let spd = 30; // Speed of walking motion, larger the number, the slower the speed
+let high = 0; // How high the robot is standing
+
+let goingForward = false;
+let goingBackward = false;
+let goingRight = false;
+let goingLeft = false;
+
 //camera buttons
 // const btnCameraLeft = document.querySelector("#camera_left");
 // const btnCameraRight = document.querySelector("#camera_right");
 
 board.on("ready", function() {
   console.log("Johnny-five connected");
-  // calibration
-  let da = -12, // Left Front Pivot
-    db = 10, // Left Back Pivot
-    dc = -18, // Right Back Pivot
-    dd = 12; // Right Front Pivot
-
-  // servo initial positions + calibration
-  let a90 = 90 + da,
-    a120 = 120 + da,
-    a150 = 150 + da,
-    a180 = 180 + da;
-
-  let b0 = 0 + db,
-    b30 = 30 + db,
-    b60 = 60 + db,
-    b90 = 90 + db;
-
-  let c90 = 90 + dc,
-    c120 = 120 + dc,
-    c150 = 150 + dc,
-    c180 = 180 + dc;
-
-  let d0 = 0 + dd,
-    d30 = 30 + dd,
-    d60 = 60 + dd,
-    d90 = 90 + dd;
-
-  // start polets for servo
-  let s11 = 90; // Front Left Pivot Servo
-  let s12 = 90; // Front Left Lift Servo
-  let s21 = 90; // Back Left Pivot Servo
-  let s22 = 90; // Back Left Lift Servo
-  let s31 = 90; // Back Right Pivot Servo
-  let s32 = 90; // Back Right Lift Servo
-  let s41 = 90; // Front Right Pivot Servo
-  let s42 = 90; // Front Right Lift Servo
-
-  let spd = 30; // Speed of walking motion, larger the number, the slower the speed
-  let high = 0; // How high the robot is standing
-
   // Initialize the servo instances
   // Servo myServo1; // Front Left Pivot Servo
   const FLPServo = new five.Servo({
@@ -117,6 +122,15 @@ board.on("ready", function() {
     BRLServo.to(90);
     FRPServo.to(90);
     FRLServo.to(90);
+
+    s11 = 90; // Front Left Pivot Servo
+    s12 = 90; // Front Left Lift Servo
+    s21 = 90; // Back Left Pivot Servo
+    s22 = 90; // Back Left Lift Servo
+    s31 = 90; // Back Right Pivot Servo
+    s32 = 90; // Back Right Lift Servo
+    s41 = 90; // Front Right Pivot Servo
+    s42 = 90; // Front Right Lift Servo
   };
   //kantel nr links
   const lean_left = () => {
@@ -146,38 +160,45 @@ board.on("ready", function() {
     dd++; // Right Front Pivot
   };
   //buiging maken
-  const bowPart01 = () => {
+  const bow = async () => {
+    center_servos();
+    await delay(200);
     FLLServo.to(15);
     FRLServo.to(15);
-  };
-  const bowPart02 = () => {
+    await delay(700);
     FLLServo.to(100);
     FRLServo.to(90);
-  };
-  const bow = () => {
-    center_servos();
-    delay(200).then(() => bowPart01());
-    delay(900).then(() => bowPart02());
-    delay(1600).then(() => console.log("bow done"));
+    await delay(700);
+    console.log("bow done");
   };
   //dansen
-  const dance = () => {
+  const dance = async () => {
     center_servos();
-    delay(100).then(() => lean_left());
-    delay(400).then(() => lean_right());
-    delay(700).then(() => lean_left());
-    delay(1000).then(() => lean_right());
-    delay(1300).then(() => lean_left());
-    delay(1600).then(() => lean_right());
-    delay(1900).then(() => lean_left());
-    delay(2700).then(() => center_servos());
-    delay(3000).then(() => bow());
+    await delay(100);
+    lean_left();
+    await delay(300);
+    lean_right();
+    await delay(300);
+    lean_left();
+    await delay(300);
+    lean_right();
+    await delay(300);
+    lean_left();
+    await delay(300);
+    lean_right();
+    await delay(300);
+    lean_left();
+    await delay(300);
+    lean_right();
+    await delay(800);
+    center_servos();
+    await delay(300);
+    bow();
     center_servos();
     console.log("done dancing");
   };
   //wave
-  const wave = () => {
-    // center_servos();
+  const wave = async () => {
     FLPServo.to(55);
     FLLServo.to(100);
     BLPServo.to(90);
@@ -187,15 +208,23 @@ board.on("ready", function() {
     FRPServo.to(90);
     FRLServo.to(90);
 
-    delay(200).then(() => FRLServo.to(0));
-    delay(400).then(() => FRPServo.to(180));
-    delay(600).then(() => FRPServo.to(30));
-    delay(900).then(() => FRPServo.to(180));
-    delay(1200).then(() => FRPServo.to(30));
-    delay(1500).then(() => FRPServo.to(s41));
-    delay(1800).then(() => FRLServo.to(s42));
-    delay(2000).then(() => bow());
-    // center_servos();
+    await delay(200);
+    FRLServo.to(0);
+    await delay(200);
+    FRPServo.to(180);
+    await delay(200);
+    FRPServo.to(30);
+    await delay(300);
+    FRPServo.to(180);
+    await delay(300);
+    FRPServo.to(30);
+    await delay(300);
+    FRPServo.to(s41);
+    await delay(300);
+    FRLServo.to(s42);
+    await delay(200);
+    bow();
+    center_servos();
   };
   //1 stap vooruit
   const forward = () => {
@@ -289,7 +318,20 @@ board.on("ready", function() {
     FRLServo.to(0);
   };
 
-  const srv = (p11, p21, p31, p41, p12, p22, p32, p42, sp1, sp2, sp3, sp4) => {
+  const srv = async (
+    p11,
+    p21,
+    p31,
+    p41,
+    p12,
+    p22,
+    p32,
+    p42,
+    sp1,
+    sp2,
+    sp3,
+    sp4
+  ) => {
     // p11: Front Left Pivot Servo
     // p21: Back Left Pivot Servo
     // p31: Back Right Pivot Servo
@@ -468,8 +510,8 @@ board.on("ready", function() {
     BRLServo.to(s32);
     FRLServo.to(s42);
 
-    delay(spd).then(() => console.log("next move")); // Delay before next movement
-    // await delay(5000);
+    // delay(spd).then(() => console.log("next move")); // Delay before next movement
+    await delay(spd);
   };
   //camera links
   const camera_links = msg => {
@@ -481,7 +523,6 @@ board.on("ready", function() {
       // msg.classList.add(".disabled");
     }
   };
-
   //camera right
   const camera_right = () => {
     if (CRServo.value === 55) {
@@ -491,57 +532,93 @@ board.on("ready", function() {
     }
   };
   //
+  const main = async () => {
+    while (goingForward === true) {
+      console.log("vooruit gaan");
+      forward();
+      await delay(1000);
+    }
+    while (goingBackward === true) {
+      console.log("achteruit gaan");
+      backward();
+      await delay(1000);
+    }
+    while (goingLeft === true) {
+      console.log("links gaan");
+      turn_left();
+      await delay(1000);
+    }
+    while (goingRight === true) {
+      console.log("rechts gaan");
+      turn_right();
+      await delay(1000);
+    }
+    console.log("stop true statement");
+    await delay(1000);
+    bow();
+  };
+  //
   io.on("connection", function(socket) {
     //
-    //CRServo.to(82.5); //for center
     socket.on("forward", function(msg) {
-      delay(5000).then(() => forward());
-    });
-    socket.on("forwardHold", function(msg) {
-      console.log("hold forward");
-      forward();
-    });
-    socket.on("stop", function(msg) {
-      console.log("stop");
+      goingForward = true;
+      goingBackward = false;
+      goingLeft = false;
+      goingRight = false;
+      main();
     });
     socket.on("backward", function(msg) {
-      delay(5000).then(() => backward());
-    });
-    socket.on("backwardHold", function(msg) {
-      console.log("hold back");
-      backward();
+      goingForward = false;
+      goingBackward = true;
+      goingLeft = false;
+      goingRight = false;
+      main();
     });
     socket.on("left", function(msg) {
-      delay(5000).then(() => turn_left());
-    });
-    socket.on("leftHold", function(msg) {
-      console.log("hold left");
-      turn_left();
+      goingForward = false;
+      goingBackward = false;
+      goingLeft = true;
+      goingRight = false;
+      main();
     });
     socket.on("right", function(msg) {
-      delay(5000).then(() => turn_right());
+      goingForward = false;
+      goingBackward = false;
+      goingLeft = false;
+      goingRight = true;
+      main();
     });
-    socket.on("rightHold", function(msg) {
-      console.log("hold right");
-      lean_right();
+    socket.on("stop", function(msg) {
+      goingForward = false;
+      goingBackward = false;
+      goingLeft = false;
+      goingRight = false;
+      main();
+      console.log("stop");
     });
     socket.on("bow", function(msg) {
-      delay(5000).then(() => bow());
+      // delay(5000).then(() => bow());
+      bow();
     });
     socket.on("dance", function(msg) {
-      delay(5000).then(() => dance());
+      // delay(5000).then(() => dance());
+      dance();
     });
     socket.on("wave", function(msg) {
-      delay(5000).then(() => wave());
+      // delay(5000).then(() => wave());
+      wave();
     });
     socket.on("lean_left", function(msg) {
-      delay(5000).then(() => lean_left());
+      // delay(5000).then(() => lean_left());
+      lean_left();
     });
     socket.on("lean_right", function(msg) {
-      delay(5000).then(() => lean_right());
+      // delay(5000).then(() => lean_right());
+      lean_right();
     });
     socket.on("center", function(msg) {
-      delay(5000).then(() => center_servos());
+      // delay(5000).then(() => center_servos());
+      center_servos();
     });
     socket.on("rust", function(msg) {
       rust();

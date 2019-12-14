@@ -44,6 +44,12 @@ h1, h2{
 .disabled{
   opacity: 20%;
 }
+.noselect {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 i {
   border: solid #00bfb6;

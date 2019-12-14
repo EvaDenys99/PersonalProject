@@ -47,9 +47,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`forward`, e.currentTarget.value);
   };
@@ -57,9 +54,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`backward`, e.currentTarget.value);
   };
@@ -67,9 +61,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`left`, e.currentTarget.value);
   };
@@ -77,9 +68,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`right`, e.currentTarget.value);
   };
@@ -87,9 +75,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`bow`, e.currentTarget.value);
   };
@@ -97,9 +82,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`dance`, e.currentTarget.value);
   };
@@ -107,9 +89,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`wave`, e.currentTarget.value);
   };
@@ -117,9 +96,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`lean_left`, e.currentTarget.value);
   };
@@ -127,9 +103,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`lean_right`, e.currentTarget.value);
   };
@@ -137,9 +110,6 @@
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`center`, e.currentTarget.value);
   };
@@ -147,36 +117,11 @@
     show = "Finally thank you!";
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-    //om het typewriter effect bij elke nieuwe zin toe te voegen
-    typewriter.innerHTML = ""; //remove all children
-    typewriter.appendChild(tekst); //add the new h1 element
 
     socket.emit(`rust`, e.currentTarget.value);
   };
 
-  let timeOut;
-  const handleOnMouseDownTest = e => {
-    timeOut = setInterval(function() {
-      socket.emit(`forwardHold`, e);
-    }, 500);
-  };
-  const handleOnMouseDownBackward = e => {
-    timeOut = setInterval(function() {
-      socket.emit(`backwardHold`, e);
-    }, 500);
-  };
-  const handleOnMouseDownLeft = e => {
-    timeOut = setInterval(function() {
-      socket.emit(`leftHold`, e);
-    }, 500);
-  };
-  const handleOnMouseDownRight = e => {
-    timeOut = setInterval(function() {
-      socket.emit(`rightHold`, e);
-    }, 500);
-  };
   const handleOnMouseUpTest = e => {
-    clearInterval(timeOut);
     socket.emit(`stop`, e);
   };
 
@@ -190,23 +135,17 @@
   btnForward.addEventListener(`pointerdown`, e =>
     handleOnPointerDownForward(e)
   );
-  btnForward.addEventListener(`pointerdown`, e => handleOnMouseDownTest(e));
   btnForward.addEventListener(`pointerup`, e => handleOnMouseUpTest(e));
   //
   btnBackwards.addEventListener(`pointerdown`, e =>
     handleOnPointerDownBackward(e)
   );
-  btnBackwards.addEventListener(`pointerdown`, e =>
-    handleOnMouseDownBackward(e)
-  );
   btnBackwards.addEventListener(`pointerup`, e => handleOnMouseUpTest(e));
   //
   btnLeft.addEventListener(`pointerdown`, e => handleOnPointerDownLeft(e));
-  btnLeft.addEventListener(`pointerdown`, e => handleOnMouseDownLeft(e));
   btnLeft.addEventListener(`pointerup`, e => handleOnMouseUpTest(e));
   //
   btnRight.addEventListener(`pointerdown`, e => handleOnPointerDownRight(e));
-  btnRight.addEventListener(`pointerdown`, e => handleOnMouseDownRight(e));
   btnRight.addEventListener(`pointerup`, e => handleOnMouseUpTest(e));
   //
   btnBow.addEventListener(`pointerdown`, e => handleOnPointerDownBow(e));
