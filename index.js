@@ -629,6 +629,12 @@ board.on("ready", function() {
     socket.on("camera_right", function(msg) {
       camera_right();
     });
+    socket.on("press", function(msg) {
+      console.log("pressing");
+    });
+    socket.on("pressup", function(msg) {
+      console.log("done");
+    });
   });
 });
 

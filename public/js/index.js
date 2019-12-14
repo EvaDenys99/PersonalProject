@@ -1,8 +1,6 @@
 {
   //socket connectie
   const socket = io.connect("/");
-  //delay / pauze
-  const delay = t => new Promise(resolve => setTimeout(resolve, t));
   //camera buttons
   const btnCameraLeft = document.querySelector("#camera_left");
   const btnCameraRight = document.querySelector("#camera_right");
@@ -19,10 +17,7 @@
   const btnLean_right = document.querySelector("#lean_right");
   const btnCenter = document.querySelector("#center");
   const btnRust = document.querySelector("#rust");
-  //test
-  const btnTest = document.querySelector("#test");
-  //tekst & effect
-  const typewriter = document.querySelector(".typewriter");
+  //
   const tekst = document.querySelector("#tekst");
   const tekst01 = document.querySelector("#tekst01");
   const myShows = [
@@ -42,132 +37,140 @@
       console.log(`Connected: ${socket.id}`);
     });
   };
-  //
-  const handleOnPointerDownForward = e => {
+  //Hammer.js instance aanmaken - button forward
+  const moveForward = new Hammer(btnForward);
+  // listen to events...
+  moveForward.on("press", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`forward`, e.currentTarget.value);
-  };
-  const handleOnPointerDownBackward = e => {
+    //
+    socket.emit(`forward`, e);
+  });
+  moveForward.on("pressup", function(e) {
+    socket.emit(`stop`, e);
+  });
+  //Hammer.js instance aanmaken - button backward
+  const moveBackward = new Hammer(btnBackwards);
+  // listen to events...
+  moveBackward.on("press", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`backward`, e.currentTarget.value);
-  };
-  const handleOnPointerDownLeft = e => {
+    //
+    socket.emit(`backward`, e);
+  });
+  moveBackward.on("pressup", function(e) {
+    socket.emit(`stop`, e);
+  });
+  //Hammer.js instance aanmaken - button left
+  const moveLeft = new Hammer(btnLeft);
+  // listen to events...
+  moveLeft.on("press", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`left`, e.currentTarget.value);
-  };
-  const handleOnPointerDownRight = e => {
+    //
+    socket.emit(`left`, e);
+  });
+  moveLeft.on("pressup", function(e) {
+    socket.emit(`stop`, e);
+  });
+  //Hammer.js instance aanmaken - button right
+  const moveRight = new Hammer(btnRight);
+  // listen to events...
+  moveRight.on("press", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`right`, e.currentTarget.value);
-  };
-  const handleOnPointerDownBow = e => {
+    //
+    socket.emit(`right`, e);
+  });
+  moveRight.on("pressup", function(e) {
+    socket.emit(`stop`, e);
+  });
+  //Hammer.js instance aanmaken - button bow
+  const bow = new Hammer(btnBow);
+  // listen to events...
+  bow.on("tap", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`bow`, e.currentTarget.value);
-  };
-  const handleOnPointerDownDance = e => {
+    //
+    socket.emit(`bow`, e);
+  });
+  //Hammer.js instance aanmaken - button dance
+  const dance = new Hammer(btnDance);
+  // listen to events...
+  dance.on("tap", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`dance`, e.currentTarget.value);
-  };
-  const handleOnPointerDownWave = e => {
+    //
+    socket.emit(`dance`, e);
+  });
+  //Hammer.js instance aanmaken - button wave
+  const wave = new Hammer(btnWave);
+  // listen to events...
+  wave.on("tap", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`wave`, e.currentTarget.value);
-  };
-  const handleOnPointerDownLeanLeft = e => {
+    //
+    socket.emit(`wave`, e);
+  });
+  //Hammer.js instance aanmaken - button lean_left
+  const lean_left = new Hammer(btnLean_left);
+  // listen to events...
+  lean_left.on("tap", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`lean_left`, e.currentTarget.value);
-  };
-  const handleOnPointerDownLeanRight = e => {
+    //
+    socket.emit(`lean_left`, e);
+  });
+  //Hammer.js instance aanmaken - button lean_right
+  const lean_right = new Hammer(btnLean_right);
+  // listen to events...
+  lean_right.on("tap", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`lean_right`, e.currentTarget.value);
-  };
-  const handleOnPointerDownCenter = e => {
+    //
+    socket.emit(`lean_right`, e);
+  });
+  //Hammer.js instance aanmaken - button center
+  const center = new Hammer(btnCenter);
+  // listen to events...
+  center.on("tap", function(e) {
     show = myShows[Math.floor(Math.random() * myShows.length)];
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`center`, e.currentTarget.value);
-  };
-  const handleOnPointerDownRust = e => {
+    //
+    socket.emit(`center`, e);
+  });
+  //Hammer.js instance aanmaken - button rust
+  const rust = new Hammer(btnRust);
+  // listen to events...
+  rust.on("tap", function(e) {
     show = "Finally thank you!";
     tekst.innerHTML = show;
     tekst01.innerHTML = show;
-
-    socket.emit(`rust`, e.currentTarget.value);
-  };
-
-  const handleOnMouseUpTest = e => {
-    socket.emit(`stop`, e);
-  };
-
-  const handleOnPointerDownCameraLeft = e => {
+    //
+    socket.emit(`rust`, e);
+  });
+  //Hammer.js instance aanmaken - button camera left
+  const cameraLeft = new Hammer(btnCameraLeft);
+  // listen to events...
+  cameraLeft.on("tap", function(e) {
     socket.emit(`camera_links`, e);
-  };
-  const handleOnPointerDownCameraRight = e => {
+  });
+  //Hammer.js instance aanmaken - button camera left
+  const cameraRight = new Hammer(btnCameraRight);
+  // listen to events...
+  cameraRight.on("tap", function(e) {
     socket.emit(`camera_right`, e);
-  };
-  //
-  btnForward.addEventListener(`pointerdown`, e =>
-    handleOnPointerDownForward(e)
-  );
-  btnForward.addEventListener(`pointerup`, e => handleOnMouseUpTest(e));
-  //
-  btnBackwards.addEventListener(`pointerdown`, e =>
-    handleOnPointerDownBackward(e)
-  );
-  btnBackwards.addEventListener(`pointerup`, e => handleOnMouseUpTest(e));
-  //
-  btnLeft.addEventListener(`pointerdown`, e => handleOnPointerDownLeft(e));
-  btnLeft.addEventListener(`pointerup`, e => handleOnMouseUpTest(e));
-  //
-  btnRight.addEventListener(`pointerdown`, e => handleOnPointerDownRight(e));
-  btnRight.addEventListener(`pointerup`, e => handleOnMouseUpTest(e));
-  //
-  btnBow.addEventListener(`pointerdown`, e => handleOnPointerDownBow(e));
-  btnDance.addEventListener(`pointerdown`, e => handleOnPointerDownDance(e));
-  btnWave.addEventListener(`pointerdown`, e => handleOnPointerDownWave(e));
-  btnLean_left.addEventListener(`pointerdown`, e =>
-    handleOnPointerDownLeanLeft(e)
-  );
-  btnLean_right.addEventListener(`pointerdown`, e =>
-    handleOnPointerDownLeanRight(e)
-  );
-  btnCenter.addEventListener(`pointerdown`, e => handleOnPointerDownCenter(e));
-  btnRust.addEventListener(`pointerdown`, e => handleOnPointerDownRust(e));
-  //
-
-  //
-  btnCameraLeft.addEventListener(`pointerdown`, e =>
-    handleOnPointerDownCameraLeft(e)
-  );
-  btnCameraRight.addEventListener(`pointerdown`, e =>
-    handleOnPointerDownCameraRight(e)
-  );
+  });
 
   init();
 }
