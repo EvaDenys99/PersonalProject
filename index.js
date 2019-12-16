@@ -227,7 +227,7 @@ board.on("ready", function() {
     center_servos();
   };
   //1 stap vooruit
-  const forward = () => {
+  const forward = async () => {
     // calculation of points
     // Left Front Pivot
     (a90 = 90 + da), (a120 = 120 + da), (a150 = 150 + da), (a180 = 180 + da);
@@ -244,55 +244,88 @@ board.on("ready", function() {
     // set servo positions and speeds needed to walk forward one step
     // (LFP,  LBP, RBP,  RFP, LFL, LBL, RBL, RFL, S1, S2, S3, S4)
     srv(a180, b0, c120, d60, 42, 40, 33, 42, 1, 3, 1, 1);
+    await delay(100);
     srv(a90, b30, c90, d30, 6, 40, 33, 42, 3, 1, 1, 1);
+    await delay(100);
     srv(a90, b30, c90, d30, 42, 40, 33, 42, 3, 1, 1, 1);
+    await delay(100);
     srv(a120, b60, c180, d0, 42, 40, 6, 42, 1, 1, 3, 1);
+    await delay(100);
     srv(a120, b60, c180, d0, 42, 40, 33, 42, 1, 1, 3, 1);
+    await delay(100);
     srv(a150, b90, c150, d90, 42, 40, 33, 6, 1, 1, 1, 3);
-    srv(a150, b90, c150, d90, 42, 40, 33, 42, 1, 1, 1, 3);
+    await delay(100);
+    srv(a150, b90, c150, d90, 42, 40, 90, 42, 1, 1, 1, 3);
+    await delay(100);
+    srv(a180, b0, c120, d60, 42, 40, 90, 42, 1, 3, 1, 1);
+    await delay(100);
     srv(a180, b0, c120, d60, 42, 40, 33, 42, 1, 3, 1, 1);
-    srv(a180, b0, c120, d60, 42, 40, 33, 42, 1, 3, 1, 1);
+    await delay(100);
     // center_servos();
     console.log("lopen");
   };
   //1 stap achteruit
-  const backward = () => {
+  const backward = async () => {
     // set servo positions and speeds needed to walk backward one step
     // (LFP,  LBP, RBP,  RFP, LFL, LBL, RBL, RFL, S1, S2, S3, S4)
     srv(180, 0, 120, 60, 42, 33, 33, 42, 3, 1, 1, 1);
-    srv(150, 90, 150, 90, 42, 18, 33, 42, 1, 3, 1, 1);
-    srv(150, 90, 150, 90, 42, 33, 33, 42, 1, 3, 1, 1);
+    await delay(100);
+    srv(150, 90, 150, 90, 42, 18, 90, 42, 1, 3, 1, 1);
+    await delay(100);
+    srv(150, 90, 150, 90, 42, 33, 90, 42, 1, 3, 1, 1);
+    await delay(100);
     srv(120, 60, 180, 0, 42, 33, 33, 6, 1, 1, 1, 3);
+    await delay(100);
     srv(120, 60, 180, 0, 42, 33, 33, 42, 1, 1, 1, 3);
+    await delay(100);
     srv(90, 30, 90, 30, 42, 33, 18, 42, 1, 1, 3, 1);
+    await delay(100);
     srv(90, 30, 90, 30, 42, 33, 33, 42, 1, 1, 3, 1);
+    await delay(100);
     srv(180, 0, 120, 60, 6, 33, 33, 42, 3, 1, 1, 1);
+    await delay(100);
   };
   //1 stap naar links
-  const turn_left = () => {
+  const turn_left = async () => {
     // set servo positions and speeds needed to turn left one step
     // (LFP,  LBP, RBP,  RFP, LFL, LBL, RBL, RFL, S1, S2, S3, S4)
     srv(150, 90, 90, 30, 42, 6, 33, 42, 1, 3, 1, 1);
+    await delay(100);
     srv(150, 90, 90, 30, 42, 33, 33, 42, 1, 3, 1, 1);
+    await delay(100);
     srv(120, 60, 180, 0, 42, 33, 6, 42, 1, 1, 3, 1);
+    await delay(100);
     srv(120, 60, 180, 0, 42, 33, 33, 24, 1, 1, 3, 1);
+    await delay(100);
     srv(90, 30, 150, 90, 42, 33, 33, 6, 1, 1, 1, 3);
+    await delay(100);
     srv(90, 30, 150, 90, 42, 33, 33, 42, 1, 1, 1, 3);
+    await delay(100);
     srv(180, 0, 120, 60, 6, 33, 33, 42, 3, 1, 1, 1);
+    await delay(100);
     srv(180, 0, 120, 60, 42, 33, 33, 33, 3, 1, 1, 1);
+    await delay(100);
   };
   //1stap naar rechts
-  const turn_right = () => {
+  const turn_right = async () => {
     // set servo positions and speeds needed to turn right one step
     // (LFP,  LBP, RBP,  RFP, LFL, LBL, RBL, RFL, S1, S2, S3, S4)
     srv(90, 30, 150, 90, 6, 33, 33, 42, 3, 1, 1, 1);
+    await delay(100);
     srv(90, 30, 150, 90, 42, 33, 33, 42, 3, 1, 1, 1);
+    await delay(100);
     srv(120, 60, 180, 0, 42, 33, 33, 6, 1, 1, 1, 3);
+    await delay(100);
     srv(120, 60, 180, 0, 42, 33, 33, 42, 1, 1, 1, 3);
+    await delay(100);
     srv(150, 90, 90, 30, 42, 33, 6, 42, 1, 1, 3, 1);
+    await delay(100);
     srv(150, 90, 90, 30, 42, 33, 33, 42, 1, 1, 3, 1);
+    await delay(100);
     srv(180, 0, 120, 60, 42, 6, 33, 42, 1, 3, 1, 1);
+    await delay(100);
     srv(180, 0, 120, 60, 42, 33, 33, 42, 1, 3, 1, 1);
+    await delay(100);
   };
   //snelheid verhogen
   const increase_speed = () => {
@@ -515,6 +548,14 @@ board.on("ready", function() {
   };
   //camera links
   const camera_links = msg => {
+    if (CRServo.value === 55) {
+      CRServo.to(82.5);
+    } else {
+      CRServo.to(120);
+    }
+  };
+  //camera right
+  const camera_right = () => {
     if (CRServo.value === 120) {
       CRServo.to(82.5);
     } else {
@@ -523,13 +564,40 @@ board.on("ready", function() {
       // msg.classList.add(".disabled");
     }
   };
-  //camera right
-  const camera_right = () => {
-    if (CRServo.value === 55) {
-      CRServo.to(82.5);
-    } else {
-      CRServo.to(120);
-    }
+
+  const football = async () => {
+    //ball onder poot
+    // FLPServo.to(55);
+    // FLLServo.to(180);
+    // BLPServo.to(90);
+    // BLLServo.to(180);
+    // BRPServo.to(90);
+    // BRLServo.to(180);
+    // FRPServo.to(90);
+    // FRLServo.to(90);
+
+    // await delay(200);
+    // FRLServo.to(0);
+    // // await delay(2000);
+    // // bow();
+
+    //ball wegsjotten
+    FLPServo.to(55);
+    FLLServo.to(100);
+    BLPServo.to(90);
+    BLLServo.to(45);
+    BRPServo.to(90);
+    BRLServo.to(45);
+    FRPServo.to(0);
+    FRLServo.to(90);
+
+    await delay(1000);
+    FRLServo.to(0);
+    await delay(200);
+    FRPServo.to(90);
+    await delay(1000);
+    bow();
+    center_servos();
   };
   //
   const main = async () => {
@@ -618,7 +686,8 @@ board.on("ready", function() {
     });
     socket.on("center", function(msg) {
       // delay(5000).then(() => center_servos());
-      center_servos();
+      // center_servos();
+      football();
     });
     socket.on("rust", function(msg) {
       rust();

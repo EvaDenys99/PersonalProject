@@ -22,13 +22,24 @@
   const tekst01 = document.querySelector("#tekst01");
   const myShows = [
     "... Do I have to?",
-    "But why, I was just fine being lazy.",
-    "Can't I have some peace for 5 g*dd*mn minutes.",
+    "But why...",
+    "I was just fine being lazy!",
+    "Can't I have some peace.",
+    "Just 5 g*dd*mn minutes!",
     "Hold my beer.",
-    "Getting ready... On my own time.",
-    "I am not your slave, stop ordering me around!",
-    "Lets crack a cold \n one?",
-    "Don't you have something better to do?"
+    "Getting ready...",
+    "On my own time.",
+    "I am not a slave!",
+    "Stop ordering me around.",
+    "Lets crack a cold one?",
+    "Don't you have a life?",
+    "Uuurgh...",
+    "Noooo...",
+    "Let's get this bread.",
+    "Yeet.",
+    "Let's yeet this wheat.",
+    "word",
+    "I'm loving it *sarcasm*"
   ];
   let show;
   //
