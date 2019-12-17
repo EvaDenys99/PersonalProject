@@ -581,7 +581,7 @@ board.on("ready", function() {
     // // await delay(2000);
     // // bow();
 
-    //ball wegsjotten
+    // //ball wegsjotten
     FLPServo.to(55);
     FLLServo.to(100);
     BLPServo.to(90);
